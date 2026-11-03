@@ -1,0 +1,35 @@
+# firmware builds
+build/
+*.elf
+*.hex
+*.bin
+*.map
+
+# vendored SDKs are fetched, not committed
+firmware/deps/
+
+# KiCad
+*-backups/
+*.kicad_prl
+fp-info-cache
+*.lck
+
+# macOS
+.DS_Store
+docs/reference/
+
+# desktop test binary
+firmware/tests/host_tests
+firmware/tests/sample_ring.o
+firmware/tests/*.dSYM/
+
+# Wi-Fi credentials for the BL618 build
+firmware/bl618_rtl_udp/wifi_secrets.h
+firmware/bl618_rtl_udp/build.log
+
+# the Linux build host's ssh name, local to each checkout
+firmware/tools/build-host
+
+# Python bytecode
+__pycache__/
+*.pyc

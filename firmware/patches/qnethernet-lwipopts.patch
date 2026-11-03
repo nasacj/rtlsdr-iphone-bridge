@@ -1,0 +1,38 @@
+diff --git a/src/lwipopts.h b/src/lwipopts.h
+index f35fa18..d349a30 100644
+--- a/src/lwipopts.h
++++ b/src/lwipopts.h
+@@ -71,7 +71,8 @@ void qnethernet_hal_check_core_locking(const char* file, int line,
+ #ifndef MEMP_NUM_TCP_PCB_LISTEN
+ // #define MEMP_NUM_TCP_PCB_LISTEN            8
+ #endif  // !MEMP_NUM_TCP_PCB_LISTEN
+-// #define MEMP_NUM_TCP_SEG                   16
++// rtl_bridge: one segment per MSS of send buffer, and some over.
++#define MEMP_NUM_TCP_SEG                   48
+ // #define MEMP_NUM_ALTCP_PCB                 MEMP_NUM_TCP_PCB
+ // #define MEMP_NUM_REASSDATA                 5
+ // #define MEMP_NUM_FRAG_PBUF                 15
+@@ -233,8 +234,11 @@ void qnethernet_hal_check_core_locking(const char* file, int line,
+ #define TCP_MSS                    ((MTU) - 40)  /* 536 */
+ // #define TCP_CALCULATE_EFF_SEND_MSS 1
+ // #define LWIP_TCP_RTO_TIME          3000
+-#define TCP_SND_BUF                (4 * (TCP_MSS))  /* (2 * TCP_MSS) */
+-// #define TCP_SND_QUEUELEN           ((4 * (TCP_SND_BUF) + (TCP_MSS - 1))/(TCP_MSS))
++// rtl_bridge: 2.4 MSPS is 4.8 MB/s. Throughput is at most window / RTT, so 4 * MSS
++// (5.8 KB) holds only ~1.2 ms of samples and caps the stream as soon as the phone's
++// round trip passes about a millisecond. 22 * MSS is 32 KB, ~6.7 ms.
++#define TCP_SND_BUF                (22 * (TCP_MSS))  /* (2 * TCP_MSS) */
++#define TCP_SND_QUEUELEN           (2 * (TCP_SND_BUF) / (TCP_MSS))
+ /* #define TCP_SNDLOWAT \
+    LWIP_MIN(LWIP_MAX(((TCP_SND_BUF)/2), (2 * TCP_MSS) + 1), (TCP_SND_BUF) - 1)*/
+ // #define TCP_SNDQUEUELOWAT LWIP_MAX(((TCP_SND_QUEUELEN)/2), 5)
+@@ -337,7 +341,8 @@ void qnethernet_hal_check_core_locking(const char* file, int line,
+ // #define LWIP_POSIX_SOCKETS_IO_NAMES       1
+ // #define LWIP_SOCKET_OFFSET                0
+ // #define LWIP_SOCKET_EXTERNAL_HEADERS      0
+-// #define LWIP_TCP_KEEPALIVE                0
++// rtl_bridge: lets an idle connection to a vanished peer be noticed.
++#define LWIP_TCP_KEEPALIVE                1
+ // #define LWIP_SO_SNDTIMEO                  0
+ // #define LWIP_SO_RCVTIMEO                  0
+ // #define LWIP_SO_SNDRCVTIMEO_NONSTANDARD   0

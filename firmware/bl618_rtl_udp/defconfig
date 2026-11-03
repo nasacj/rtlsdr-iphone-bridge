@@ -1,0 +1,31 @@
+# Wi-Fi, lwIP, FreeRTOS, the shell: what every SDK Wi-Fi example uses.
+-include $(BL_SDK_BASE)/examples/wifi/defconfig
+
+# The Ai-M61-32S's 4 MiB of PSRAM, for the sample ring (sample_ring.h).
+CONFIG_PSRAM =y
+# **Run the code from PSRAM, not from flash.** All code and rodata are copied into PSRAM at
+# boot (start_load, before main; the boot loader has already brought PSRAM up). From flash,
+# through a 32 KiB instruction cache that the Wi-Fi transmit path does not fit in, every
+# datagram cost ~420 us inside udp_sendto and the board topped out near 1.4 MSPS with the
+# CPU saturated; from PSRAM the same call is ~100 us and 2.0 MSPS streams without a loss.
+# Measured 2026-10-30, the first send of a pass no slower than the rest: the cache was not
+# cold, it was being thrashed. Costs the sample ring a megabyte (CMakeLists.txt).
+CONFIG_PSRAM_COPY_CODE =y
+
+# CherryUSB, host only: the RTL-SDR is the one device.
+CONFIG_CHERRYUSB =y
+CONFIG_CHERRYUSB_OSAL =freertos
+CONFIG_CHERRYUSB_HOST =y
+
+# The board's own Wi-Fi password, drawn on first boot, lives in the PSM partition through
+# lfs_kv (ap_credentials.c); these are what the SDK's easyflash example enables for it.
+CONFIG_LITTLEFS =y
+CONFIG_BFLB_MTD =y
+CONFIG_PARTITION =y
+
+# The Wi-Fi manager's `iperf` shell command, as in examples/wifi/sta/wifi_tcp: the raw
+# throughput of the radio link, measured before anything of ours is in the path.
+CONFIG_WIFI_IPERF =y
+
+# lwIP's mDNS responder (rtlsdr.local); the lwIP settings it needs are in config/lwipopts_user.h.
+CONFIG_MDNS =y
