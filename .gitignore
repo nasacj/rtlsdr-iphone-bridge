@@ -33,3 +33,6 @@ firmware/tools/build-host
 # Python bytecode
 __pycache__/
 *.pyc
+
+# 3D models converted from the parts library: large, regenerated on demand
+hardware/*/lib/*.3dshapes/

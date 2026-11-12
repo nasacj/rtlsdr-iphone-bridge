@@ -1,0 +1,10 @@
+# downloaded tools, never part of the design
+tools/
+*/.venv/
+*/.easyeda_cache/
+# KiCad per-user state and backups
+*.kicad_prl
+*-backups/
+fp-info-cache
+# generated: reports, netlist, Specctra files, renders and fabrication output
+*/out/

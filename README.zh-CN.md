@@ -149,6 +149,17 @@ firmware/tools/flash-bl618.sh /dev/tty.usbserial-XXXX
 
 **3. 按一下 EN 键**，新固件就开始运行了。
 
+**模组焊在自己的板子上，BOOT 键不起作用。** 普通版 Ai-M61-32S 模组边缘的 IO2 焊盘内部没有连接，IO2 只在模组背面的
+一个圆形测试点上；丝印末尾带 `A` 或 `ALL` 的版本才把它引到边缘。开发板上用的是后一种，所以它的按键有效。
+模组已经焊死的情况下，改由 boot2 在串口上握手进入烧录：
+
+```bash
+firmware/tools/flash-bl618.sh --isp /dev/cu.usbmodemXXXX     # 提示时按一下复位
+```
+
+复位**只按一下**：再按一次，芯片就退出烧录模式了。这种方式要求串口芯片能跑 2 Mbaud，并且 Flash 里已经有 boot2，
+出厂 AT 固件和本固件都带。
+
 烧录卡在写入那一步、30 秒后超时：把烧录工具目录里
 `chips/bl616/eflash_loader/eflash_loader_cfg.ini` 的 `decompress_write` 改成 `false`，拔插一次板子的 USB 再试。
 烧录工具默认先压缩再写，板子要在 30 秒内解压完并回一个确认，500 kbaud 下固件大一点就可能赶不上。

@@ -162,6 +162,18 @@ firmware/tools/flash-bl618.sh /dev/tty.usbserial-XXXX
 
 **3. Press EN** and the new firmware runs.
 
+**A bare module on your own board, with no boot button that works.** On a plain Ai-M61-32S module the IO2 pad on
+the edge is not connected inside; IO2 is a round test point on the module's back, and only modules marked `A` or
+`ALL` bring it out to the edge. The kit carries such a module, so its button works. For a module that is already
+soldered down, boot2 takes a handshake over the serial port instead:
+
+```bash
+firmware/tools/flash-bl618.sh --isp /dev/cu.usbmodemXXXX     # press reset once when it asks
+```
+
+Press reset **once**: a second press takes the chip back out of download mode. It needs a serial chip that does
+2 Mbaud, and a boot2 already in the flash, which the factory AT firmware and this firmware both have.
+
 If flashing stalls at the write step and times out after 30 seconds, set `decompress_write = false` in the flasher's
 `chips/bl616/eflash_loader/eflash_loader_cfg.ini`, unplug and replug the board, and try again. The flasher compresses
 the image by default and the board must decompress it and acknowledge within 30 seconds, which a larger image may

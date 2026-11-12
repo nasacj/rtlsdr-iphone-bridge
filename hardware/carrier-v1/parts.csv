@@ -1,0 +1,27 @@
+ref,value,lcsc,library,stock,purpose
+U1,Ai-M61-32S(ALL),C22365150,expand,,"BL618 Wi-Fi 6 + USB 2.0 HS host module; the (ALL) variant brings IO2 out to pin 27, the plain C22365152 does not"
+U2,CH334P,C5373042,expand,36439,USB 2.0 HS 4-port hub (MTT)
+U3,CH343P,C2846043,expand,10274,USB to UART for log and flashing
+U4,TS3USB221RSER,C130085,expand,64320,USB 2.0 HS 2:1 analog switch 1.1 GHz
+U5,SY6280AAC,C55136,expand,72614,RTL-SDR VBUS current-limit switch
+U6,TLV62569DBVR,C141836,expand,270952,5 V to 3.3 V buck 2 A
+L1,2.2uH SMNR5040,C9941,expand,3059,buck inductor shielded 3.7 A
+Y1,12MHz 20pF,C9002,base,288902,hub crystal
+D2,USBLC6-2SC6,C2687116,expand,110338,"USB ESD on the RTL-SDR side (none on the USB-C side, see design.py)"
+J1,TYPE-C 16PIN 2MD(073),C2765186,expand,1234850,USB-C receptacle (power + PC)
+J2,USB-A female right angle,C46407,expand,2411,RTL-SDR plugs in here
+SW1,MSK12C02,C431540,expand,186730,"mode slide switch Wi-Fi / PC (SMD, two locating holes)"
+SW2 SW3,TS-1187A-B-A-B,C318884,base,1044459,RESET and BOOT buttons
+LED1,S6-3528RGBTA RGB,C2843672,expand,114000,"status RGB, one package as on the kit (IO12/14/15)"
+LED4,KT-0603W white,C2290,base,1189784,PC-mode indicator
+LED5,KT-0603W white,C2290,base,1189784,"C lamp, breathes (IO29)"
+LED6,KT-0603Y yellow,C2287,expand,106049,W lamp (IO27)
+R (CC),5.1k 0402,C25905,base,4899006,USB-C CC1/CC2 pull-down
+R (ISET),10k 0402,C25744,base,15869032,SY6280 limit 6800/10k = 0.68 A
+R (FB),100k / 22k 0402,C25741 / C25768,base,,buck feedback 0.6*(1+100/22) = 3.33 V
+R (LED),470R 0402,C25117,base,1157033,LED current
+R (0R),0R 0402,C17168,base,10211677,bypass / option links
+C,100nF 0402,C1525,base,34232769,decoupling
+C,1uF 0402,C52923,base,10346636,decoupling
+C,10uF 0805,C15850,base,7802129,buck input and output
+C,22uF 0805,C45783,base,3556659,USB-A VBUS bulk
