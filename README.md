@@ -111,7 +111,7 @@ charger, or measure the voltage on the `5V` pin.
 The kit and four wires are the quick way in. The same circuit also exists as one board, with a USB-A socket
 for the RTL-SDR, so nothing is wired by hand:
 
-<img src="docs/images/carrier-v1-photo.jpg" width="420" alt="Photo of carrier board v1, powered through USB-C with a cable in its USB-A socket; the yellow lamp beside the Ai-M61-32S module is lit">
+<img src="docs/images/carrier-v1-photo.jpg" width="640" alt="Photo of carrier board v1, powered through USB-C with a cable in its USB-A socket; the yellow lamp beside the Ai-M61-32S module is lit">
 
 *One of the first two boards, running: power on the USB-C port, the RTL-SDR's cable in the USB-A socket,
 the yellow lamp steady, which means the RTL-SDR is recognised and ready.*

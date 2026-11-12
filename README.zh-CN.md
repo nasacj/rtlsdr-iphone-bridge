@@ -98,7 +98,7 @@ RTL-SDR 的电来自板子的 `5V` 排针，前面有一个二极管，电压会
 
 开发板加四根线是最快的上手办法。同样的电路也做成了一块板，板上自带 USB-A 母座插 RTL-SDR，不用手工接线：
 
-<img src="docs/images/carrier-v1-photo.jpg" width="420" alt="载板 v1 实物照片：USB-C 供电，USB-A 上插着线，Ai-M61-32S 模组旁的黄灯亮着">
+<img src="docs/images/carrier-v1-photo.jpg" width="640" alt="载板 v1 实物照片：USB-C 供电，USB-A 上插着线，Ai-M61-32S 模组旁的黄灯亮着">
 
 *第一批两块中的一块，正在工作：USB-C 供电，USB-A 上插着 RTL-SDR 的线，黄灯常亮表示 RTL-SDR 已识别、可以用了。*
 
