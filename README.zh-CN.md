@@ -98,9 +98,13 @@ RTL-SDR 的电来自板子的 `5V` 排针，前面有一个二极管，电压会
 
 开发板加四根线是最快的上手办法。同样的电路也做成了一块板，板上自带 USB-A 母座插 RTL-SDR，不用手工接线：
 
+<img src="docs/images/carrier-v1-photo.jpg" width="420" alt="载板 v1 实物照片：USB-C 供电，USB-A 上插着线，Ai-M61-32S 模组旁的黄灯亮着">
+
+*第一批两块中的一块，正在工作：USB-C 供电，USB-A 上插着 RTL-SDR 的线，黄灯常亮表示 RTL-SDR 已识别、可以用了。*
+
 ![载板 v1 渲染图：USB-A 母座、拨动开关、USB Hub 和串口芯片、USB-C、两个按键，以及天线伸出板边的 Ai-M61-32S 模组](docs/images/carrier-v1.png)
 
-*载板 v1，62.6 × 34.6 mm，四层（由 KiCad 文件渲染）。*
+*同一块板在 KiCad 文件里的样子：62.6 × 34.6 mm，四层。*
 
 - 拨动开关决定 RTL-SDR 接到谁：接 BL618 走 Wi-Fi，或者经 USB-C 直通电脑，电脑上看到的就是一个普通的 RTL2832U。
 - 两种位置下，USB-C 上都有串口，用来看日志和烧录。

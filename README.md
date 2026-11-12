@@ -111,9 +111,14 @@ charger, or measure the voltage on the `5V` pin.
 The kit and four wires are the quick way in. The same circuit also exists as one board, with a USB-A socket
 for the RTL-SDR, so nothing is wired by hand:
 
+<img src="docs/images/carrier-v1-photo.jpg" width="420" alt="Photo of carrier board v1, powered through USB-C with a cable in its USB-A socket; the yellow lamp beside the Ai-M61-32S module is lit">
+
+*One of the first two boards, running: power on the USB-C port, the RTL-SDR's cable in the USB-A socket,
+the yellow lamp steady, which means the RTL-SDR is recognised and ready.*
+
 ![Render of carrier board v1: USB-A socket, slide switch, USB hub and serial chips, USB-C, two buttons and the Ai-M61-32S module with its antenna over the board edge](docs/images/carrier-v1.png)
 
-*Carrier board v1, 62.6 × 34.6 mm, four layers (a render from the KiCad files).*
+*The same board as the KiCad files draw it: 62.6 × 34.6 mm, four layers.*
 
 - A slide switch chooses where the RTL-SDR goes: to the BL618, for Wi-Fi, or straight to a computer through
   the USB-C port, where it shows up as an ordinary RTL2832U.
