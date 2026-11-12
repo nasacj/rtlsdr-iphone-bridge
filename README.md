@@ -106,6 +106,25 @@ The RTL-SDR is powered from the board's `5V` pin through a diode, so it gets a f
 RTL-SDRs normally accept that. If it is not recognised, or keeps disconnecting, suspect power first: use a stronger
 charger, or measure the voltage on the `5V` pin.
 
+## A board of its own
+
+The kit and four wires are the quick way in. The same circuit also exists as one board, with a USB-A socket
+for the RTL-SDR, so nothing is wired by hand:
+
+![Render of carrier board v1: USB-A socket, slide switch, USB hub and serial chips, USB-C, two buttons and the Ai-M61-32S module with its antenna over the board edge](docs/images/carrier-v1.png)
+
+*Carrier board v1, 62.6 × 34.6 mm, four layers (a render from the KiCad files).*
+
+- A slide switch chooses where the RTL-SDR goes: to the BL618, for Wi-Fi, or straight to a computer through
+  the USB-C port, where it shows up as an ordinary RTL2832U.
+- The USB-C port also carries the serial port for the log and for flashing, in either position.
+- The first two boards have been built and tested: both modes work, and an iPhone receives 2.4 MSPS over Wi-Fi
+  with no samples lost on the USB side.
+
+The design is generated from scripts and is all in [hardware/carrier-v1/](hardware/carrier-v1/): netlist,
+KiCad files, parts list with LCSC numbers. [BRINGUP.md](hardware/carrier-v1/BRINGUP.md) records what was
+measured on the first boards and the one part that had to change. Those two documents are in Chinese.
+
 ## Build
 
 The firmware builds only on **x86_64 Linux**. The Wi-Fi library in Bouffalo's SDK is shipped as GCC 10.2 LTO
@@ -297,6 +316,7 @@ firmware/
   tools/              fetching dependencies, building, flashing, the counter test
   tests/              unit tests that run on a computer
 docs/images/          the diagrams on this page
+hardware/carrier-v1/  the carrier board: netlist, KiCad files, parts list, bring-up record
 ```
 
 Besides Wi-Fi there is a wired route in this repository: a Teensy 4.1 with Ethernet, into the iPhone through a

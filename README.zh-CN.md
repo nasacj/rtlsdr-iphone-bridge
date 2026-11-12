@@ -94,6 +94,21 @@ Wi-Fi 运行时，CPU 以外的某个东西（最可能是 Wi-Fi 硬件）每隔
 RTL-SDR 的电来自板子的 `5V` 排针，前面有一个二极管，电压会比 5 V 低零点几伏。RTL-SDR 一般能接受；
 插上后不识别或者反复断开，先怀疑供电：换一个电流更大的充电头，或者量一下 `5V` 排针的电压。
 
+## 做成一块板
+
+开发板加四根线是最快的上手办法。同样的电路也做成了一块板，板上自带 USB-A 母座插 RTL-SDR，不用手工接线：
+
+![载板 v1 渲染图：USB-A 母座、拨动开关、USB Hub 和串口芯片、USB-C、两个按键，以及天线伸出板边的 Ai-M61-32S 模组](docs/images/carrier-v1.png)
+
+*载板 v1，62.6 × 34.6 mm，四层（由 KiCad 文件渲染）。*
+
+- 拨动开关决定 RTL-SDR 接到谁：接 BL618 走 Wi-Fi，或者经 USB-C 直通电脑，电脑上看到的就是一个普通的 RTL2832U。
+- 两种位置下，USB-C 上都有串口，用来看日志和烧录。
+- 第一批两块已经做出来并测过：两种模式都正常，iPhone 经 Wi-Fi 收 2.4 MSPS，USB 一侧没有丢样。
+
+设计由脚本生成，全部在 [hardware/carrier-v1/](hardware/carrier-v1/)：网表、KiCad 文件、带立创编号的物料表。
+第一批板子的实测结果和唯一改动的一颗料，见 [BRINGUP.md](hardware/carrier-v1/BRINGUP.md)。
+
 ## 编译
 
 固件只能在 **x86_64 Linux** 上编。博流 SDK 里预编译的 Wi-Fi 库是 GCC 10.2 生成的 LTO 中间代码，
@@ -271,6 +286,7 @@ firmware/
   tools/              取依赖、编译、烧录、计数器测试的脚本
   tests/              在电脑上跑的单元测试
 docs/images/          这一页上的图
+hardware/carrier-v1/  载板：网表、KiCad 文件、物料表、上板记录
 ```
 
 除了 Wi-Fi，仓库里还有一条有线的路：Teensy 4.1 加网口，经 USB-C 有线网卡接 iPhone。
