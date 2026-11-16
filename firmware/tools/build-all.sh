@@ -40,6 +40,8 @@ step "desktop unit tests"
 make -s -C "$here/tests" test
 
 step "BL618 on $host"
+# Which board this build is for, so the one being flashed next is never a guess.
+"$here/tools/configure-bl618.sh" --show
 # --delete so a renamed or removed file does not live on there: the build host is a mirror of
 # this tree. Excluded paths are kept, which protects its toolchains and SDK.
 #

@@ -25,6 +25,7 @@ firmware/tests/*.dSYM/
 
 # Wi-Fi credentials for the BL618 build
 firmware/bl618_rtl_udp/wifi_secrets.h
+firmware/bl618_rtl_udp/board_settings.h
 firmware/bl618_rtl_udp/build.log
 
 # the Linux build host's ssh name, local to each checkout

@@ -239,6 +239,21 @@ cp wifi_secrets.h.example wifi_secrets.h
   App 里填 `rtlsdr.local` 就不用管地址。
 - BL618 只支持 **2.4 GHz**。iPhone 个人热点要打开"最大兼容性"；连家里的路由器要用 2.4 GHz 的那个名字。
 
+**一部手机带两块板子**，每块板子接一个接收机。两块板子要有各自的名字，并且都去连手机的热点。同样的设置可以不改文件、
+直接在命令行里给——每块板子编译之前各运行一次：
+
+```sh
+firmware/tools/configure-bl618.sh --join "张三的 iPhone" --name rtlsdr-atc    # 会问密码
+firmware/tools/build-all.sh && firmware/tools/flash-bl618.sh /dev/cu.usbserial-XXXX
+firmware/tools/configure-bl618.sh --join "张三的 iPhone" --name rtlsdr-adsb
+firmware/tools/build-all.sh && firmware/tools/flash-bl618.sh /dev/cu.usbserial-YYYY
+```
+
+- App 里分别填 `rtlsdr-atc.local` 和 `rtlsdr-adsb.local`。名字只能用小写字母、数字和连字符，中间不能有点。
+- `--own --name rtlsdr` 是让板子自己开热点；`--show` 显示下一次编译是给哪块板子的（编译时也会打印）；
+  `--clear` 回到 `wifi_secrets.h`。
+- 设置写在 `firmware/bl618_rtl_udp/board_settings.h` 里，不提交到 git；它设了的项会盖过 `wifi_secrets.h`。
+
 **密码泄露了想换一个**（没写 `BRIDGE_AP_KEY` 的情况）：在串口里输入 `bridge_ap_newkey` 回车，再按 EN 重启，
 板子会生成新的随机密码并打印出来。
 

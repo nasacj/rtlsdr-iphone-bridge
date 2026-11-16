@@ -265,6 +265,24 @@ The settings are compiled in, so **rebuild and reflash** after changing them.
 - The BL618 is **2.4 GHz only**. On an iPhone, turn on **Maximize Compatibility** for the Personal Hotspot; on a
   home router, use its 2.4 GHz network name.
 
+**Two boards on one phone**, one receiver each. Each board needs its own name, and both join the phone's
+hotspot. The same settings can be given on the command line instead of edited into the file — once per board,
+just before building for it:
+
+```sh
+firmware/tools/configure-bl618.sh --join "Jane’s iPhone" --name rtlsdr-atc    # asks for the password
+firmware/tools/build-all.sh && firmware/tools/flash-bl618.sh /dev/cu.usbserial-XXXX
+firmware/tools/configure-bl618.sh --join "Jane’s iPhone" --name rtlsdr-adsb
+firmware/tools/build-all.sh && firmware/tools/flash-bl618.sh /dev/cu.usbserial-YYYY
+```
+
+- The app then reaches them as `rtlsdr-atc.local` and `rtlsdr-adsb.local`. A name is lower-case letters, digits
+  and hyphens; a dot is not allowed inside one.
+- `--own --name rtlsdr` is a board that opens its own hotspot; `--show` says what the next build is for (the build
+  prints it too); `--clear` goes back to `wifi_secrets.h`.
+- The settings are written to `firmware/bl618_rtl_udp/board_settings.h`, which is not committed, and override
+  `wifi_secrets.h` for what they set.
+
 **A password that has been given away** (when `BRIDGE_AP_KEY` is not set): type `bridge_ap_newkey` on the serial
 console, press EN to restart, and the board draws and prints a new random password.
 

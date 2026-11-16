@@ -54,4 +54,13 @@
 #define BRIDGE_MDNS_NAME "rtlsdr"
 #endif
 
+// **What this one board is for**, written by tools/configure-bl618.sh: the network it
+// joins and the name it answers to. Last, so it overrides the values above — two boards on
+// one phone are the same firmware built twice, each with its own name.
+#if defined(__has_include)
+#if __has_include("board_settings.h")
+#include "board_settings.h"
+#endif
+#endif
+
 #endif
