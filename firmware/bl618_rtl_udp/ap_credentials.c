@@ -76,7 +76,11 @@ void ap_credentials(char ssid[33], char key[64])
 {
     uint8_t id[8] = { 0 };
     bflb_efuse_get_chipid(id);
-    snprintf(ssid, 33, "%s-%02X%02X", BRIDGE_AP_SSID, id[1], id[0]);
+    // The chip ID is the MAC address in order, a4:05:fd:… — and its first bytes are the
+    // maker's prefix, the same on every board. Read from there every board was called
+    // SDR-Bridge-05A4, two side by side with different passwords; a phone that knew one
+    // refused the other. The last two bytes are the board's own.
+    snprintf(ssid, 33, "%s-%02X%02X", BRIDGE_AP_SSID, id[4], id[5]);
 
 #ifdef BRIDGE_AP_KEY
     snprintf(key, 64, "%s", BRIDGE_AP_KEY);
